@@ -16,9 +16,11 @@ class Profiles extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
+            $table->string('nickname', 100)->nullable();;
             $table->string('content', 255)->nullable();;
             $table->binary('raw_image')->nullable();;
             $table->binary('thumbnail_image')->nullable();;
+            $table->string('mime_type',50)->nullable();;
             $table->timestamps();
             $table->softDeletes();
 
