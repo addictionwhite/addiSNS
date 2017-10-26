@@ -6,6 +6,8 @@ use App\Repositories\Contracts\ProfileRepositoryInterface;
 use App\Http\Requests\Api\Contracts\ProfileUpdateRequestInterface;
 use App\Http\Requests\Api\ProfileUpdateRequest;
 
+use Illuminate\Support\Facades\Input;
+
 class ProfileService extends Service
 {
     protected $profileRepository;
@@ -16,7 +18,34 @@ class ProfileService extends Service
 
 
     /**
-     * プロフィール更新(レコードがなければ新規）
+     * プロフィール取得
+    *
+     * @param string $userId
+     *
+     * @return \App\Entities\Profile
+     */
+    public function get($userId){
+
+        return $this->profileRepository->get($userId);
+    }
+
+
+    /**
+     * プロフィール初期化
+    *
+     * @param int    $userId
+     * @param string $userName
+     *
+     * @return \App\Entities\Profile
+     */
+    public function init($userId,$userName){
+
+        return $this->profileRepository->init($userId,$userName);
+    }
+
+
+    /**
+     * プロフィール更新
      *
      * @param \App\Http\Requests\Api\Contracts\ProfileUpdateRequestInterface $request
      *
@@ -24,11 +53,16 @@ class ProfileService extends Service
      */
     public function update(ProfileUpdateRequest $request)
     {
+        // アップロードされたbase64の画像データ取得
+        $image = Input::file('thumbnail_image');
+
         return $this->profileRepository->update(
-            $request->userId()
+            \Auth::id() 
+            ,$request->nickname()
             ,$request->content()
             ,$request->rawImage()
-            ,$request->thumbnailImage()
+            ,file_get_contents($image)
+            ,$image->getMimeType()
         );
     }
 

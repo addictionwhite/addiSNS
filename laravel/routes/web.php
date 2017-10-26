@@ -18,3 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::prefix('profile')->group(function () {
+    Route::get('edit', 'ProfileController@edit')->name('プロフィール編集画面');
+    Route::put('update', 'ProfileController@update')->name('プロフィール更新');
+});

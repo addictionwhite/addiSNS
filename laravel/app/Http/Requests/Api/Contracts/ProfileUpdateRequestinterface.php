@@ -7,11 +7,12 @@ use Illuminate\Foundation\Http\FormRequest;
 interface ProfileUpdateRequestinterface extends Request
 {
     /**
-     * ユーザーID.
+     * ニックネーム.
      *
-     * @return int
+     * @return string
      */
-    public function userId();
+    public function nickname();
+
 
     /**
      * プロフィール内容.

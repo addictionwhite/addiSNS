@@ -4,14 +4,15 @@ namespace App\Http\Requests\Api;
 
 class ProfileUpdateRequest extends Request
 {
+
     /**
-     * ユーザーID.
+     * ニックネーム.
      *
-     * @return int
+     * @return string
      */
-    public function userId()
+    public function nickname()
     {
-        return $this->input('user_id');
+        return $this->input('nickname');
     }
 
 
@@ -67,10 +68,10 @@ class ProfileUpdateRequest extends Request
     public function rules()
     {
         return [
-            'user_id'         => 'required|numeric',
             'content'         => 'nullable|string|max:255',
             'raw_image'       => 'nullable',
-            'thumbnail_image' => 'nullable',
+            // TODO boolなのでカスタムバリデーションでチェックする必要あり
+            //'thumbnail_image' => 'nullable|image|mimes:jpg,png|size:5000',
         ];
     }
 
