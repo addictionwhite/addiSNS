@@ -9,7 +9,8 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 abstract class Request extends FormRequest
 {
-    protected function failedValidation(Validator $validator) {
-        throw new HttpResponseException(response()->json($validator->errors(), 422));
-    }
+	// For API
+    // protected function failedValidation(Validator $validator) {
+    //     //throw new HttpResponseException(response()->json($validator->errors(), 422));
+    // }
 }
